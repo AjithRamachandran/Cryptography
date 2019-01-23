@@ -1,9 +1,10 @@
 #include "decrypt.h"
+#include "cryptography.h"
 
 #include <string.h>
 
-void Decrypt::decrypt(int d, long int n, char* en, char* out) {
-    long int pt, ct, k, temp[100];
+void Decrypt::decrypt(long int d, long int n, char* en, char* out, long int temp[100]) {
+    long int pt, ct, k;
     char de[100];
     int i = 0;
     while(en[i] != -1)
@@ -16,11 +17,10 @@ void Decrypt::decrypt(int d, long int n, char* en, char* out) {
           k = k % n;
        }
        pt = k + 96;
-       de[i] = pt;
+       de[i] = char(pt);
        i++;
     }
-    de[i] = -1;
-    for(i=0;i<strlen(de);i++) {
+    for(size_t i=0; i<strlen(de); i++) {
         out[i] = de[i];
     }
 }

@@ -1,4 +1,5 @@
 #include "encrypt.h"
+#include "cryptography.h"
 
 #include <math.h>
 #include <string.h>
@@ -54,9 +55,9 @@ long int Encrypt::cd(long int a) {
 	}
 }
 
-void Encrypt::encrypt(char* msg, char* out, long int e) {
+void Encrypt::encrypt(char* msg, char* out, long int e, long int tempOut[100]) {
     char en[100];
-    long int pt, ct, k, temp[50], j;
+    long int pt, ct, k, j, temp[100];
     int i=0, len;
     len = int(strlen(msg));
 	while(i != len) {
@@ -67,13 +68,15 @@ void Encrypt::encrypt(char* msg, char* out, long int e) {
 			k = k * pt;
 			k = k % n;
 		  }
-		temp[i] = k;
+        temp[i] = k;
 		ct = k + 96;
         en[i] = char(ct);
 		i++;
 	}
-	en[i] = -1;
-    for(i=0;i<strlen(en);i++) {
-        out[i] = en[i];
+    for(size_t l=0; l<strlen(en); l++) {
+        out[l] = en[l];
+    }
+    for(ulong j=0;j<(sizeof(temp)/sizeof(*temp));j++) {
+        tempOut[i] = temp[i];
     }
 }

@@ -62,28 +62,38 @@ void Cryptography::on_homeFromDecrypt_clicked()
 }
 
 
-long int Cryptography::n;
+long int Cryptography::n, Cryptography::tempArray[100];
 
 void Cryptography::on_encryptTextBtn_clicked()
 {
+    bool shouldDisplay = true;
     QString temp = ui->firstPrimeET->toPlainText();
     int x = temp.toInt();
     temp = ui->secondPrimeET->toPlainText();
     int y = temp.toInt();
+    if((prime(x) == 0) || (prime(y) == 0) || (x==y)) {
+        QMessageBox::warning(this, "Error", "Numbers should be prime but not same!");
+        ui->firstPrimeET->setText("");
+        ui->secondPrimeET->setText("");
+        ui->tobeEncryptedText->setText("");
+        shouldDisplay = false;
+    }
     Encrypt encryptObject;
     long int e, d;
     long int *keys;
     keys = encryptObject.encryption_key(x, y);
     e = keys[0];
     d = keys[1];
-    n = keys[3];
+    n = keys[2];
     char message[100], out[100];
     temp = ui->tobeEncryptedText->toPlainText();
-    memcpy(message, temp.toStdString().c_str(), temp.size());
-    encryptObject.encrypt(message, out, e);
+    memcpy(message, temp.toStdString().c_str(), size_t(temp.size()));
+    encryptObject.encrypt(message, out, e, tempArray);
     QString output(out);
-    qDebug() << d;
-    ui->encryptedText->setText(output);
+    if(shouldDisplay) {
+        ui->encryptedText->setText(output);
+        qDebug() << d;
+    }
 }
 
 void Cryptography::on_DecrptTextBtn_clicked()
@@ -94,7 +104,8 @@ void Cryptography::on_DecrptTextBtn_clicked()
     temp = ui->DecryptedText->toPlainText();
     char message[100], out[100];
     memcpy(message, temp.toStdString().c_str(), temp.size());
-    decryptObject.decrypt(privateKey, n, message, out);
+    qDebug() << message;
+    decryptObject.decrypt(privateKey, n, message, out, tempArray);
     QString output(out);
     ui->EncryptedText->setText(output);
 }

@@ -5,7 +5,7 @@
 class Decrypt
 {
 public:
-    void decrypt(int, long int, char*, char*);
+    void decrypt(long int, long int, char*, char*, long int []);
 };
 
 #endif // DECRYPT_H

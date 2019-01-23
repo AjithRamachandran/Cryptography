@@ -35,7 +35,7 @@ private slots:
 
 private:
     static long int n;
-
+    static long int tempArray[100];
     Ui::Cryptography *ui;
 };
 

@@ -6,10 +6,10 @@
 class Encrypt
 {
 public:
-	static int n, t;
-	long int* encryption_key(int, int);
+    static int n, t;
+    long int* encryption_key(int, int);
 	long int cd(long int a);
-	void encrypt(char*, char*, long int);
+    void encrypt(char*, char*, long int, long int[]);
 	int prime(int);
 };
 

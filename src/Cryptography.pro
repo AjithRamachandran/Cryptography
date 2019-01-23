@@ -28,12 +28,12 @@ SOURCES += \
         main.cpp \
         cryptography.cpp \
         encrypt.cpp \
-    decrypt.cpp
+        decrypt.cpp
 
 HEADERS += \
         cryptography.h \
         encrypt.h \
-    decrypt.h
+        decrypt.h
 
 FORMS += \
         cryptography.ui
